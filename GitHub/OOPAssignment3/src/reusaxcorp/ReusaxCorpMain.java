@@ -14,7 +14,7 @@ public class ReusaxCorpMain {
     private static final int TOTAL_EMPLOYEES = 7;
     private static final int QUIT = 8;
     	
-    private Scanner input;
+    public static Scanner input;
     private ArrayList<Employee> employees;
     
     public ReusaxCorpMain() {
@@ -27,26 +27,60 @@ public class ReusaxCorpMain {
     	
     }
     
-    public Employee registerEmployee() {
-    	 
-        //parameters to read for the Employee-constructor
-        String name, id;
-        double grossSalary;
- 
-        System.out.println("Enter the name of your new employee:");
-        name = input.nextLine();
+    public void register() {
+       
+    	int choice;
+    	do {
+    	
+    		final String endOfLine = System.lineSeparator();
+    		String printStart = " Choose what you want to register: "+ endOfLine;
+    		printStart += " ➤ 1. Employee " + endOfLine;
+    		printStart += " ➤ 2. Intern " + endOfLine;
+    		printStart += " ➤ 3. Manager " + endOfLine;
+    		printStart += " ➤ 4. Director " + endOfLine;
+    		printStart += " ➤ 5. Back to main menu " + endOfLine;
+    		System.out.println(printStart);
+    		
+            choice = input.nextInt();
+            input.nextLine();
+    		
         
-        System.out.println("Enter the ID of your new employee");
-        id = input.nextLine();
+    			switch (choice) {
+    			
+    			case 1:
+                    Employee newEmployee = Employee.registerEmployee();
+                    employees.add(newEmployee);
+    				break;
+    				
+    			case 2:
+    				Intern newIntern = Intern.registerIntern();
+    				employees.add(newIntern);
+    				break;
+    				
+    			case 3:
+    				Manager newManager = Manager.registerManager();
+    				employees.add(newManager);
+    				break;
+    				
+    			case 4:
+    				Director newDirector = Director.registerDirector();
+    				employees.add(newDirector);
+    				break;
+    				
+    			case 5:
+    				System.out.println();
+    				break;
+    				
+    			default:
+    				System.out.println("Option "+choice+" is not valid.");
+                    System.out.println();
+                    break;
         
-        System.out.println("Enter the salary of your new employee:");
-        grossSalary = input.nextDouble();
-        input.nextLine();
- 
-        //Creating an object of Employee with given input and returning it
-        Employee employeeRegistered = new Employee(name, id, grossSalary);
+    			}
         
-        return employeeRegistered;
+        
+    	} while (choice != 5);
+        
     }
     
     public String readEmployeeID() {
@@ -160,8 +194,7 @@ public class ReusaxCorpMain {
             switch (option) {
             
             case REGISTER_EMPLOYEE:
-                Employee newEmployee = registerEmployee();
-                employees.add(newEmployee);
+                register();
                 break;
             
             case REMOVE_EMPLOYEE:
