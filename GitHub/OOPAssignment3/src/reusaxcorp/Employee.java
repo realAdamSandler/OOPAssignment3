@@ -12,6 +12,16 @@ public class Employee {
 		this.grossSalary = grossSalary;
 	}
 
+	
+	public String toString() {
+		return "Employee [name=" + name + ", id=" + id + ", grossSalary=" + grossSalary + "]";
+	}
+
+
+
+
+
+
 	public String getEmployeeSalary() {
 		String result = ( this.name + "’s gross salary is of " + this.grossSalary + " SEK per month.");
 		return result;
@@ -37,7 +47,7 @@ public class Employee {
 		return id;
 	}
 	
-	public Double netSalary() {
+	public Double getNetSalary() {
 		Double netSalary = this.grossSalary - (this.grossSalary * 0.1);
 		return netSalary;
 	}
