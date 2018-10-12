@@ -1,21 +1,21 @@
 package reusaxcorp;
 
+import java.util.ArrayList;
 
 public class Director extends Manager{
 
 	private String department;
-	private Double benefit = 0.0;
+	//private static Double benefit = 0.0;
 	
 	public Director(String name, String id, Double grossSalary, String degree, String department) {
 		super(name, id, grossSalary, degree);
 		this.department = department;
-		this.benefit();
 	}
 	
 	public static Director registerDirector() {
 	   	 
         //parameters to read for the Employee-constructor
-        String name, id, degree, department;
+        String name, id, degree = null, department = null;
         double grossSalary;
  
         System.out.println("Enter the name of your new employee:");
@@ -28,11 +28,68 @@ public class Director extends Manager{
         grossSalary = ReusaxCorpMain.input.nextDouble();
         ReusaxCorpMain.input.nextLine();
         
-        System.out.println("Enter the degree of your new employee: ");
-        degree = ReusaxCorpMain.input.nextLine();
+        int choice;
+    	
+    		final String endOfLine = System.lineSeparator();
+    		String printStart = " Enter the degree of your new employee: "+ endOfLine;
+    		printStart += " ➤ 1. BSc. " + endOfLine;
+    		printStart += " ➤ 2. MSc. " + endOfLine;
+    		printStart += " ➤ 3. PhD " + endOfLine;
+    		System.out.println(printStart);
+    		
+            choice = ReusaxCorpMain.input.nextInt();
+            ReusaxCorpMain.input.nextLine();
         
-        System.out.println("Enter the department of your new employee: ");
-        department = ReusaxCorpMain.input.nextLine();
+    			switch (choice) {
+    			
+    			case 1:
+                    degree = "BSc.";
+    				break;
+    				
+    			case 2:
+    				degree = "MSc.";
+    				break;
+    				
+    			case 3:
+    				degree = "PhD";
+    				break;
+    				
+    			default:
+    				System.out.println("Option "+choice+" is not valid.");
+                    System.out.println();
+                    break;
+    			}
+
+        int choice1;
+
+    		printStart = " Enter the department of your new employee: "+ endOfLine;
+    		printStart += " ➤ 1. Human Resources " + endOfLine;
+    		printStart += " ➤ 2. Technical " + endOfLine;
+    		printStart += " ➤ 3. Business " + endOfLine;
+    		System.out.println(printStart);
+    		
+            choice1 = ReusaxCorpMain.input.nextInt();
+            ReusaxCorpMain.input.nextLine();
+        
+    			switch (choice1) {
+    			
+    			case 1:
+                    department = "Human Resources";
+    				break;
+    				
+    			case 2:
+    				department = "Technical";
+    				break;
+    				
+    			case 3:
+    				department = "Business";
+    				break;
+    				
+    			default:
+    				System.out.println("Option "+choice1+" is not valid.");
+                    System.out.println();
+                    break;
+    			}
  
         //Creating an object of Employee with given input and returning it
         Director newDirector = new Director(name, id, grossSalary, degree, department);
@@ -40,18 +97,40 @@ public class Director extends Manager{
 		return newDirector;
 	}
 	
-	
-	public void benefit() {
-		this.setTotGross(this.getTotGross() + benefit);
+	@Override
+	public Double getNetSalary() {
+		Double netSalary;
+		Double tempTotGross = this.getTotGross();
+		
+		if ( tempTotGross < 30000) {
+			netSalary = tempTotGross - (tempTotGross * 0.10);
+			return netSalary;
+			
+		} else if ( 30000 <= tempTotGross && tempTotGross <= 50000 ) {
+			netSalary = tempTotGross - (tempTotGross * 0.20);
+			return netSalary;
+			
+		} else if ( tempTotGross > 50000 ) {
+			Double grossSalaryOver30 = tempTotGross - 30000;
+			netSalary = ( grossSalaryOver30 - ( grossSalaryOver30 * 0.40 ) ) + ( 30000 - ( 30000 * 0.20 ) );
+			return netSalary;
+		} else {
+			return null;
+		}
 	}
 	
-	public Double getBenefit() {
-		return benefit;
-	}
+	
+//	public void benefit() {
+//		this.setTotGross(this.getTotGross() + benefit);
+//	}
+	
+//	public Double getBenefit() {
+//		return benefit;
+//	}
 
-	public void setBenefit(Double benefit) {
-		this.benefit = benefit;
-	}
+//	public static void setBenefit(Double benefit1) {
+//		benefit = benefit1;
+//	}
 
 	public String getDepartment() {
 		return department;

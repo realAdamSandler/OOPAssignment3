@@ -6,6 +6,7 @@ public class Employee {
 	private String id;
 	private Double grossSalary;
 	private Double totGross;
+	private static Double directorsBenefit = 0.0;
 	
 	public Employee(String name, String id, Double grossSalary) {
 		this.name = name;
@@ -15,7 +16,16 @@ public class Employee {
 	}
 
 	
-    public static Employee registerEmployee() {
+    public static Double getDirectorsBenefit() {
+		return directorsBenefit;
+	}
+
+	public static void setDirectorsBenefit(Double directorsBenefit) {
+		Employee.directorsBenefit = directorsBenefit;
+	}
+
+
+	public static Employee registerEmployee() {
     	 
         //parameters to read for the Employee-constructor
         String name, id;
@@ -37,8 +47,17 @@ public class Employee {
         return employeeRegistered;
     }
 	
-	public Double getTotGross() {
+	public Double totGross() {
 		return totGross;
+	}
+	
+	public Double getTotGross() {
+		if (this.getClass() != Director.class) {
+			return totGross;
+		} else {
+			totGross = this.totGross() + directorsBenefit;
+			return totGross;
+		}
 	}
 
 	public void setTotGross(Double totGross) {
@@ -49,8 +68,8 @@ public class Employee {
 		final String endOfLine = System.lineSeparator();
         String printThis = "ID: " + id + endOfLine;
         printThis += "Name: " + name + endOfLine;
-        printThis += "Salary: " + totGross + endOfLine;
-            
+        printThis += "Gross salary: " + this.getTotGross() + endOfLine;
+        printThis += "Net salary: " + this.getNetSalary() + endOfLine;
         return printThis;
 	}
 
@@ -80,7 +99,7 @@ public class Employee {
 	}
 	
 	public Double getNetSalary() {
-		Double netSalary = this.grossSalary - (this.grossSalary * 0.1);
+		Double netSalary = this.totGross - (this.totGross * 0.10);
 		return netSalary;
 	}
 	

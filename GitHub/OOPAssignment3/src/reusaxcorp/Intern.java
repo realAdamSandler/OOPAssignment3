@@ -7,13 +7,16 @@ public class Intern extends Employee{
 	public Intern(String name, String id, Double grossSalary, int GPA) {
 		super(name, id, grossSalary);
 		this.GPA = GPA;
-		this.GPASalary(GPA);
+		this.GPASalary();
 	}
 
-	public void GPASalary(int GPA) {
+	public void GPASalary() {
+		
+		GPA = this.getGPA();
+		
 		if (GPA <= 5) {
 			this.setTotGross(0.0);
-		} else if (5 < GPA && GPA > 8 ) {
+		} else if (GPA > 5 && GPA < 8) {
 			this.setTotGross(this.getGrossSalary());
 		} else if (GPA >= 8) {
 			this.setTotGross(this.getGrossSalary() + 1000.0);

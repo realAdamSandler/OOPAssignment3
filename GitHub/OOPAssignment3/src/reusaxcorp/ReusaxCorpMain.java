@@ -16,15 +16,16 @@ public class ReusaxCorpMain {
     	
     public static Scanner input;
     private ArrayList<Employee> employees;
+    //private ArrayList<Director> directors;
     
     public ReusaxCorpMain() {
     	this.employees = new ArrayList<Employee>();
+        //this.directors = new ArrayList<Director>();
     	input = new Scanner(System.in);
     	
-    	
+    	//Delete this when done testing
     	Employee employee1 = new Employee("John", "ABC", 123.0);
     	employees.add(employee1);
-    	
     }
     
     public void register() {
@@ -43,7 +44,6 @@ public class ReusaxCorpMain {
     		
             choice = input.nextInt();
             input.nextLine();
-    		
         
     			switch (choice) {
     			
@@ -65,6 +65,7 @@ public class ReusaxCorpMain {
     			case 4:
     				Director newDirector = Director.registerDirector();
     				employees.add(newDirector);
+    				//directors.add(newDirector);
     				break;
     				
     			case 5:
@@ -128,33 +129,79 @@ public class ReusaxCorpMain {
      
 	 	int choice;
 	 	do {
-	 		System.out.println("1. Change name \n2. Change gross salary \n3. Return to main menu");
-	 		choice = input.nextInt();
-	 		input.nextLine();
+    		final String endOfLine = System.lineSeparator();
+    		String printStart = " Choose what you want to update: "+ endOfLine;
+    		printStart += " ➤ 1. Name " + endOfLine;
+    		printStart += " ➤ 2. Gross salary " + endOfLine;
+    		printStart += " ➤ 3. GPA of an Intern " + endOfLine;
+    		printStart += " ➤ 4. Degree of a Manager/Director " + endOfLine;
+    		printStart += " ➤ 5. Department of a Director " + endOfLine;
+    		printStart += " ➤ 6. Director's benefit " + endOfLine;
+    		printStart += " ➤ 7. Return to main menu " + endOfLine;
+    		System.out.println(printStart);
+    		
+            choice = input.nextInt();
+            input.nextLine();
 	 		
 	 		switch (choice) {
 	 		
-	 		case 1:
+	 		case 1://Name
 	 			System.out.println("Edit name: ");
 	 			foundEmployee.setName(input.nextLine());
 	 			break;
 	 			
-	 		case 2:
+	 		case 2://Gross Salary
 	 			System.out.println("Edit gross salary: ");
 	 			foundEmployee.setGrossSalary(input.nextDouble());
 	 			input.nextLine();
 	 			break;
 	 			
-	 		case 3:
-	 			System.out.println();
+	 		case 3://GPA
+	 			if (foundEmployee.getClass() == Intern.class) {
+	 				System.out.println("Edit GPA: ");
+	 				((Intern) foundEmployee).setGPA(input.nextInt());
+	 				input.nextLine();
+	 				((Intern) foundEmployee).GPASalary();
+	 			} else {
+	 				System.out.println("This option is only available for Interns");
+	 			}
 	 			break;
+	 			
+	 		case 4://Degree
+	 			if (foundEmployee.getClass() == Manager.class || foundEmployee.getClass() == Director.class) {
+	 				System.out.println("Edit degree: ");
+	 				((Manager) foundEmployee).setDegree(input.nextLine());
+	 				((Manager) foundEmployee).bonusSalary();
+	 			} else {
+	 				System.out.println("This option is only available for Interns");
+	 			}
+	 			break;
+	 			
+	 		case 5://Department
+	 			if (foundEmployee.getClass() == Director.class) {
+	 				System.out.println("Edit Department: ");
+	 				((Director) foundEmployee).setDepartment(input.nextLine());
+	 			} else {
+	 				System.out.println("This option is only available for Interns");
+	 			}
+	 			break;
+	 			
+	 		case 6://Benefit
+	 			System.out.println("Enter benefit: ");
+	 			Employee.setDirectorsBenefit(input.nextDouble());
+	 			input.nextLine();
+	 			break;
+	 			
+	 		case 7://Quit
+	 			System.out.println();
+	 			break;	
 	 			
 	 		default:
 	 			System.out.println("Option "+choice+" is not valid.");
                 System.out.println();
                 break;
 	 		}
-	} while (choice != 3);
+	} while (choice != 7);
 }
 	
 	public void totalEmployees() {
@@ -165,7 +212,7 @@ public class ReusaxCorpMain {
 		Double totalGross = 0.0;
 		
 		for (int i = 0; i < this.employees.size(); i++) {
-			totalGross += employees.get(i).getGrossSalary();
+			totalGross += employees.get(i).getTotGross();
 		}
 		
 		System.out.println("The total gross salary expense is: " + totalGross);

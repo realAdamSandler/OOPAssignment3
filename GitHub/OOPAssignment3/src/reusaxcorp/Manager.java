@@ -1,5 +1,7 @@
 package reusaxcorp;
 
+import java.util.ArrayList;
+
 public class Manager extends Employee{
 
 	private String degree;
@@ -7,10 +9,12 @@ public class Manager extends Employee{
 	public Manager(String name, String id, Double grossSalary, String degree) {
 		super(name, id, grossSalary);
 		this.degree = degree;
-		this.bonusSalary(degree);
+		this.bonusSalary();
 	}
 
-	public void bonusSalary(String degree) {
+	public void bonusSalary() {
+		
+		degree = this.getDegree();
 		
 		switch (degree) {
 		
