@@ -12,8 +12,9 @@ public class ReusaxCorpMain {
     private static final int GROSS_SALARIES = 5;
     private static final int NET_SALARIES = 6;
     private static final int TOTAL_EMPLOYEES = 7;
-    private static final int QUIT = 8;
-    	
+    private static final int UPDATE_BENEFIT = 8;
+    private static final int QUIT = 9;
+    
     public static Scanner input;
     private ArrayList<Employee> employees;
     //private ArrayList<Director> directors;
@@ -136,8 +137,7 @@ public class ReusaxCorpMain {
     		printStart += " ➤ 3. GPA of an Intern " + endOfLine;
     		printStart += " ➤ 4. Degree of a Manager/Director " + endOfLine;
     		printStart += " ➤ 5. Department of a Director " + endOfLine;
-    		printStart += " ➤ 6. Director's benefit " + endOfLine;
-    		printStart += " ➤ 7. Return to main menu " + endOfLine;
+    		printStart += " ➤ 6. Return to main menu " + endOfLine;
     		System.out.println(printStart);
     		
             choice = input.nextInt();
@@ -168,31 +168,65 @@ public class ReusaxCorpMain {
 	 			break;
 	 			
 	 		case 4://Degree
+	 			
 	 			if (foundEmployee.getClass() == Manager.class || foundEmployee.getClass() == Director.class) {
-	 				System.out.println("Edit degree: ");
-	 				((Manager) foundEmployee).setDegree(input.nextLine());
-	 				((Manager) foundEmployee).bonusSalary();
-	 			} else {
-	 				System.out.println("This option is only available for Interns");
-	 			}
+                    printStart = " Choose new degree "+ endOfLine;
+                    printStart += " ➤ 1. BSc. " + endOfLine;
+                    printStart += " ➤ 2. MSc. " + endOfLine;
+                    printStart += " ➤ 3. PhD. " + endOfLine;
+                    System.out.println(printStart);
+                    
+                choice = input.nextInt();
+                input.nextLine();
+
+                switch (choice) {
+
+                        case 1:
+                                 ((Manager) foundEmployee).setDegree("BSc.");
+                                 ((Manager) foundEmployee).bonusSalary();
+                        case 2:
+                                 ((Manager) foundEmployee).setDegree("MSc.");
+                                 ((Manager) foundEmployee).bonusSalary();
+                        case 3:
+                                 ((Manager) foundEmployee).setDegree("PhD.");
+                                 ((Manager) foundEmployee).bonusSalary();
+                }
+	 				} else {
+                 System.out.println("This option is only available for Managers or Directors");
+	 			}	
 	 			break;
 	 			
 	 		case 5://Department
+	 			
 	 			if (foundEmployee.getClass() == Director.class) {
-	 				System.out.println("Edit Department: ");
-	 				((Director) foundEmployee).setDepartment(input.nextLine());
-	 			} else {
-	 				System.out.println("This option is only available for Interns");
-	 			}
+
+                    printStart = " Choose new department "+ endOfLine;
+                    printStart += " ➤ 1. Human Resources " + endOfLine;
+                    printStart += " ➤ 2. Technical " + endOfLine;
+                    printStart += " ➤ 3. Business " + endOfLine;
+                    System.out.println(printStart);
+                    
+                choice = input.nextInt();
+                input.nextLine();
+
+                switch (choice) {
+
+                        case 1:
+                                 ((Director) foundEmployee).setDepartment("Human Resources");
+                                 ((Director) foundEmployee).bonusSalary();
+                        case 2:
+                                 ((Director) foundEmployee).setDepartment("Technical");
+                                 ((Director) foundEmployee).bonusSalary();
+                        case 3:
+                                 ((Director) foundEmployee).setDepartment("Business");
+                                 ((Director) foundEmployee).bonusSalary();
+                 }
+	 				} else {
+                     System.out.println("This option is only available for Directors");
+                 }
 	 			break;
-	 			
-	 		case 6://Benefit
-	 			System.out.println("Enter benefit: ");
-	 			Employee.setDirectorsBenefit(input.nextDouble());
-	 			input.nextLine();
-	 			break;
-	 			
-	 		case 7://Quit
+
+	 		case 6://Quit
 	 			System.out.println();
 	 			break;	
 	 			
@@ -201,7 +235,7 @@ public class ReusaxCorpMain {
                 System.out.println();
                 break;
 	 		}
-	} while (choice != 7);
+	} while (choice != 6);
 }
 	
 	public void totalEmployees() {
@@ -268,6 +302,12 @@ public class ReusaxCorpMain {
                 totalEmployees();
                 break;
                 
+            case UPDATE_BENEFIT:
+            	System.out.println("Enter benefit: ");
+	 			Employee.setDirectorsBenefit(input.nextDouble());
+	 			input.nextLine();
+                break;  
+                
             case QUIT://Fix this??
             	System.out.println("\n Thank you for using ReusaxCorp Employee Management System. See you soon!");
 				System.out.println();
@@ -291,7 +331,8 @@ public class ReusaxCorpMain {
             printStart += " ➤ 5. Calculate gross salaries " + endOfLine;
             printStart += " ➤ 6. Calculate net salaries " + endOfLine;
             printStart += " ➤ 7. View total number of employees " + endOfLine;
-            printStart += " ➤ 8. Quit this program " + endOfLine;
+            printStart += " ➤ 8. Update director's benefit " + endOfLine;
+            printStart += " ➤ 9. Quit this program " + endOfLine;
 
             System.out.println(printStart);
 

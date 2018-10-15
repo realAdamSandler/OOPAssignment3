@@ -10,6 +10,18 @@ public class Intern extends Employee{
 		this.GPASalary();
 	}
 
+	@Override
+	public String toString() {
+		final String endOfLine = System.lineSeparator();
+        String printThis = "ID: " + getId() + endOfLine;
+        printThis += "Name: " + getName() + endOfLine;
+        printThis += "Position: Intern" + endOfLine;
+        printThis += "GPA: " + getGPA() + endOfLine;
+        printThis += "Gross salary: " + getTotGross() + " SEK" + endOfLine;
+        printThis += "Net salary: " + getNetSalary() + " SEK" + endOfLine;
+        return printThis;
+	}
+	
 	public void GPASalary() {
 		
 		GPA = this.getGPA();
@@ -40,7 +52,7 @@ public class Intern extends Employee{
         grossSalary = ReusaxCorpMain.input.nextDouble();
         ReusaxCorpMain.input.nextLine();
         
-        System.out.println("Enter the GPA of your new employee: ");
+        System.out.println("Enter the GPA of your new employee (0 - 10) : ");
         GPA = ReusaxCorpMain.input.nextInt();
         ReusaxCorpMain.input.nextLine();
  

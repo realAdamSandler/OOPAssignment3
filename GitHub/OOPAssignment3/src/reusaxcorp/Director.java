@@ -12,6 +12,19 @@ public class Director extends Manager{
 		this.department = department;
 	}
 	
+	@Override
+	public String toString() {
+		final String endOfLine = System.lineSeparator();
+        String printThis = "ID: " + getId() + endOfLine;
+        printThis += "Name: " + getName() + endOfLine;
+        printThis += "Position: Director" + endOfLine;
+        printThis += "Degree: " + getDegree() + endOfLine;
+        printThis += "Department: " + getDepartment() + endOfLine;
+        printThis += "Gross salary: " + getTotGross() + " SEK" + endOfLine;
+        printThis += "Net salary: " + getNetSalary() + " SEK" +endOfLine;
+        return printThis;
+	}
+	
 	public static Director registerDirector() {
 	   	 
         //parameters to read for the Employee-constructor
@@ -100,7 +113,7 @@ public class Director extends Manager{
 	@Override
 	public Double getNetSalary() {
 		Double netSalary;
-		Double tempTotGross = this.getTotGross();
+		Double tempTotGross = this.totGross();
 		
 		if ( tempTotGross < 30000) {
 			netSalary = tempTotGross - (tempTotGross * 0.10);
@@ -118,19 +131,6 @@ public class Director extends Manager{
 			return null;
 		}
 	}
-	
-	
-//	public void benefit() {
-//		this.setTotGross(this.getTotGross() + benefit);
-//	}
-	
-//	public Double getBenefit() {
-//		return benefit;
-//	}
-
-//	public static void setBenefit(Double benefit1) {
-//		benefit = benefit1;
-//	}
 
 	public String getDepartment() {
 		return department;

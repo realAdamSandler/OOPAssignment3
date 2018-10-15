@@ -68,8 +68,8 @@ public class Employee {
 		final String endOfLine = System.lineSeparator();
         String printThis = "ID: " + id + endOfLine;
         printThis += "Name: " + name + endOfLine;
-        printThis += "Gross salary: " + this.getTotGross() + endOfLine;
-        printThis += "Net salary: " + this.getNetSalary() + endOfLine;
+        printThis += "Gross salary: " + getTotGross() + " SEK" + endOfLine;
+        printThis += "Net salary: " + getNetSalary() + " SEK" + endOfLine;
         return printThis;
 	}
 
