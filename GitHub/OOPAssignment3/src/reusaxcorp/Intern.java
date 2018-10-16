@@ -35,33 +35,6 @@ public class Intern extends Employee{
 		}
 	}
 	
-	public static Intern registerIntern() {
-	   	 
-        //parameters to read for the Employee-constructor
-        String name, id;
-        double grossSalary;
-        int GPA;
- 
-        System.out.println("Enter the name of your new employee:");
-        name = ReusaxCorpMain.input.nextLine();
-        
-        System.out.println("Enter the ID of your new employee");
-        id = ReusaxCorpMain.input.nextLine();
-        
-        System.out.println("Enter the salary of your new employee:");
-        grossSalary = ReusaxCorpMain.input.nextDouble();
-        ReusaxCorpMain.input.nextLine();
-        
-        System.out.println("Enter the GPA of your new employee (0 - 10) : ");
-        GPA = ReusaxCorpMain.input.nextInt();
-        ReusaxCorpMain.input.nextLine();
- 
-        //Creating an object of Employee with given input and returning it
-        Intern newIntern = new Intern(name, id, grossSalary, GPA);
-        
-		return newIntern;
-	}
-	
 	public int getGPA() {
 		return GPA;
 	}
