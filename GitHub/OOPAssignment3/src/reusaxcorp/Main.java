@@ -54,7 +54,7 @@ public class Main {
                 break;
                 
             case UPDATE_BENEFIT:
-	 			Employee.setDirectorsBenefit(Print.updatingBenefit());
+	 			Director.setDirectorsBenefit(Print.updatingBenefit());
                 break;  
                 
             case PROMOTION:
@@ -209,8 +209,10 @@ public class Main {
 	 			
 	 		case 4://Degree
 	 			
-	 			if (foundEmployee.getClass() == Manager.class || foundEmployee.getClass() == Director.class) {
-	 				company.updateDegree(foundEmployee, Print.enterDegree());
+	 			if (foundEmployee.getClass() == Manager.class) {
+	 				company.updateDegreeManager(foundEmployee, Print.enterDegree());
+	 			} else if(foundEmployee.getClass() == Director.class) {
+	 				company.updateDegreeDirector(foundEmployee, Print.enterDegree());
 	 			} else {
 	 				Print.printString("This option is only available for Managers or Directors");
 	 			}	
@@ -238,7 +240,7 @@ public class Main {
 
 	//Promotion
 	public void promote() {
-    	String name, id, degree, department;
+    	String name, degree, department;
         double totGross;
     	int GPA, choice;
 		
@@ -255,7 +257,7 @@ public class Main {
 				switch (choice) {
 				case 1:
 					name = foundEmployee.getName();
-					totGross = foundEmployee.getTotGross();
+					totGross = foundEmployee.getGrossSalary();
 	 			
 					company.promoteToEmployee(foundEmployee, name, employeeID, totGross);
 					break;
@@ -265,7 +267,7 @@ public class Main {
 						Print.printString("Employee with ID " + employeeID + " is already an Intern");
 					} else {
 						name = foundEmployee.getName();
-						totGross = foundEmployee.getTotGross();
+						totGross = foundEmployee.getGrossSalary();
 
 						if (foundEmployee.getClass() == Intern.class) {
 							GPA = ((Intern) foundEmployee).getGPA();
@@ -281,7 +283,7 @@ public class Main {
 						Print.printString("Employee with ID " + employeeID + " is already a Manager");
 					} else {
 						name = foundEmployee.getName();
-						totGross = foundEmployee.getTotGross();
+						totGross = foundEmployee.getGrossSalary();
 
 						if (foundEmployee.getClass() == Director.class) {
 							degree = ((Director) foundEmployee).getDegree();
@@ -297,7 +299,7 @@ public class Main {
 						Print.printString("Employee with ID " + employeeID + " is already a Director");
 					} else {
 						name = foundEmployee.getName();
-						totGross = foundEmployee.getTotGross();
+						totGross = foundEmployee.getGrossSalary();
 						department = Print.enterDepartment();
 	 			
 						if (foundEmployee.getClass() == Manager.class) {

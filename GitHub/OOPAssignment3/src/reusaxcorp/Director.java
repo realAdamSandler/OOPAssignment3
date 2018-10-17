@@ -4,7 +4,7 @@ public class Director extends Employee{
 
 	private String department;
 	private String degree;
-	//private static Double benefit = 0.0;
+	private static Double directorsBenefit = 0.0;
 	
 	public Director(String name, String id, Double grossSalary, String degree, String department) {
 		super(name, id, grossSalary);
@@ -86,6 +86,14 @@ public class Director extends Employee{
 
 	public void setDepartment(String department) {
 		this.department = department;
+	}
+
+	public static Double getDirectorsbenefit() {
+		return directorsBenefit;
+	}
+
+	public static void setDirectorsBenefit(Double directorsBenefit) {
+		Director.directorsBenefit = directorsBenefit;
 	}
 
 }

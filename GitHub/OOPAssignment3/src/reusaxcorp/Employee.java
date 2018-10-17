@@ -6,21 +6,12 @@ public class Employee {
 	private String id;
 	private Double grossSalary;
 	protected Double totGross;
-	protected static Double directorsBenefit = 0.0;
 	
 	public Employee(String name, String id, Double grossSalary) {
 		this.name = name;
 		this.id = id;
 		this.grossSalary = grossSalary;
 		totGross = grossSalary;
-	}
-	
-    public static Double getDirectorsBenefit() {
-		return directorsBenefit;
-	}
-
-	public static void setDirectorsBenefit(Double directorsBenefit) {
-		Employee.directorsBenefit = directorsBenefit;
 	}
 	
 	public Double getTotGross() {

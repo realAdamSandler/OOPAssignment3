@@ -1,7 +1,6 @@
 package reusaxcorp;
 
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class ReusaxCorp {
     
@@ -73,9 +72,14 @@ public class ReusaxCorp {
 		foundEmployee.setGrossSalary(grossSalary);
 	}
 	
-	public void updateDegree(Employee foundEmployee, String degree) {
+	public void updateDegreeManager(Employee foundEmployee, String degree) {
 		((Manager) foundEmployee).setDegree(degree);
         ((Manager) foundEmployee).bonusSalary();
+	}
+	
+	public void updateDegreeDirector(Employee foundEmployee, String degree) {
+		((Director) foundEmployee).setDegree(degree);
+		((Director) foundEmployee).bonusSalary();
 	}
 	
 	public void updateDepartment(Employee foundEmployee, String department) {
