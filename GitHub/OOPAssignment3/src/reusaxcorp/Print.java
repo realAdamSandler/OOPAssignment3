@@ -9,6 +9,7 @@ public class Print {
 	
 	private static Scanner input = new Scanner(System.in);
 	
+	//Input
 	public static String enterName() {
         System.out.println("Enter the name of your new employee:");
         return input.nextLine();
@@ -34,17 +35,37 @@ public class Print {
         return GPA;
 	}
 	
-	public static int enterDegree() {
+	public static String enterDegree() {
 		printStart = " Enter the degree of your new employee: "+ endOfLine;
 		printStart += " ➤ 1. BSc. " + endOfLine;
 		printStart += " ➤ 2. MSc. " + endOfLine;
 		printStart += " ➤ 3. PhD " + endOfLine;
 		System.out.println(printStart);
 	
+		String degree = null;
 		int choice = input.nextInt();
     	input.nextLine();
     
-    	return choice;
+			switch (choice) {
+			
+			case 1:
+                degree = "BSc.";
+                break;
+				
+			case 2:
+				degree = "MSc.";
+				break;
+				
+			case 3:
+				degree = "PhD";
+				break;
+				
+			default:
+				System.out.println("Option "+choice+" is not valid.");
+                System.out.println();
+                break;
+			}
+		return degree;
 	}
 	
 	public static int enterPromotion() {
@@ -62,19 +83,40 @@ public class Print {
     	return choice;
 	}
 	
-	public static int enterDepartment() {
+	public static String enterDepartment() {
 		printStart = " Enter the department of your new employee: "+ endOfLine;
 		printStart += " ➤ 1. Human Resources " + endOfLine;
 		printStart += " ➤ 2. Technical " + endOfLine;
 		printStart += " ➤ 3. Business " + endOfLine;
 		System.out.println(printStart);
-	
-		int choice1 = input.nextInt();
+		
+		String department = null;
+		int choice = input.nextInt();
 		input.nextLine();
     
-		return choice1;
+			switch (choice) {
+			
+			case 1:
+                department = "Human Resources";
+				break;
+				
+			case 2:
+				department = "Technical";
+				break;
+				
+			case 3:
+				department = "Business";
+				break;
+				
+			default:
+				System.out.println("Option "+choice+" is not valid.");
+                System.out.println();
+                break;
+			}
+		return department;
 	}
-	
+
+	//Update
 	public static int updatingEmployee() {
 		printStart = " Choose what you want to update: "+ endOfLine;
 		printStart += " ➤ 1. Name " + endOfLine;
@@ -91,6 +133,15 @@ public class Print {
         return choice;
 	}
 
+	public static Double updatingBenefit() {
+    	System.out.println("Enter benefit: ");
+		Double benefit = input.nextDouble();
+		input.nextLine();
+		
+		return benefit;
+	}
+	
+	//Register Menu
 	public static int registerMenu() {
 		printStart = " Choose what you want to register: "+ endOfLine;
 		printStart += " ➤ 1. Employee " + endOfLine;
@@ -106,28 +157,21 @@ public class Print {
         return choice;
 	}
 
+	//Print String plus empty line
 	public static void printString(String string) {
 		System.out.println(string);
         System.out.println();
 	}
-	
-	public static String readId() {
+
+	//Reading
+	public static String readEmployeeID() {
         System.out.print("Enter ID of employee: ");
-        String employeeID = input.nextLine();
-        return employeeID;
+        return input.nextLine();
 	}
 
 	public static int readInt() {
         int option = input.nextInt();
         input.nextLine(); 
         return option;
-	}
-	
-	public static Double updatingBenefit() {
-    	System.out.println("Enter benefit: ");
-		Double benefit = input.nextDouble();
-		input.nextLine();
-		
-		return benefit;
 	}
 }

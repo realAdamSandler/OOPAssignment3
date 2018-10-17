@@ -13,7 +13,7 @@ public class Main {
     private static final int PROMOTION = 9;
     private static final int QUIT = 10;
 	
-	ReusaxCorp company = new ReusaxCorp();
+	private ReusaxCorp company = new ReusaxCorp();
 	
     public void run() {
         int option;
@@ -26,19 +26,19 @@ public class Main {
             switch (option) {
             
             case REGISTER_EMPLOYEE:
-                company.register();
+                register();
                 break;
             
             case REMOVE_EMPLOYEE:
-            	company.removeEmployee();
+            	removeEmployee();
                 break;
 
             case PRINT_EMPLOYEE:
-            	company.printEmployee();
+            	printEmployee();
             	break;
 
             case UPDATE_EMPLOYEES:
-            	company.updateEmployee();
+            	updateEmployee();
                 break;
 
             case GROSS_SALARIES:
@@ -58,7 +58,7 @@ public class Main {
                 break;  
                 
             case PROMOTION:
-            	company.promote();
+            	promote();
             	break;
                 
             case QUIT://Fix this??
@@ -94,5 +94,230 @@ public class Main {
 		Main program = new Main();
     	program.run();
 	}
+ 
+    //Registering
+    public void register() {
+       
+    	String name, id, degree, department;
+        double grossSalary;
+    	int GPA, choice;
+    	
+    	do {
 
+            choice = Print.registerMenu();
+        
+    			switch (choice) {
+    			
+    			case 1:
+    		        name = Print.enterName();
+    		        id = Print.enterId();
+    		        grossSalary = Print.enterGrossSalary();
+
+    		        company.registerEmployee(name, id, grossSalary);
+    				break;
+    				
+    			case 2:
+    		        name = Print.enterName();
+    		        id = Print.enterId();
+    		        grossSalary = Print.enterGrossSalary();
+    		        GPA = Print.enterGPA();
+    		 
+    		        company.registerIntern(name, id, grossSalary, GPA);
+    				break;
+    				
+    			case 3:
+    		        name = Print.enterName();
+    		        id = Print.enterId();
+    		        grossSalary = Print.enterGrossSalary();
+    		        degree = Print.enterDegree();
+    		 
+    		        company.registerManager(name, id, grossSalary, degree);
+    				break;
+    				
+    			case 4:
+    				 name = Print.enterName();
+    			     id = Print.enterId();
+    			     grossSalary = Print.enterGrossSalary();
+    			     degree = Print.enterDegree();
+    			     department = Print.enterDepartment();
+    			 
+    			     company.registerDirector(name, id, grossSalary, degree, department);
+    				break;
+    				
+    			case 5:
+    				System.out.println();
+    				break;
+    				
+    			default:
+    				Print.printString("Option "+choice+" is not valid.");
+                    break;
+    			}
+    	} while (choice != 5);
+    }
+
+    //EmployeeSpecific
+    public void removeEmployee() {
+    	String employeeID = Print.readEmployeeID();
+    	Employee foundEmployee = company.retrieveEmployee(employeeID);
+    	
+    	if(foundEmployee != null) {
+    		company.removeEmployee(foundEmployee);
+    		System.out.println("Employee " + foundEmployee.getName() + " with ID " + foundEmployee.getId() + " has been removed.");
+    	} else {
+    		System.out.println("An employee of " + employeeID + " is not registered in the system.");
+    	}
+    }
+    
+	public void printEmployee() {
+		String employeeID = Print.readEmployeeID();
+		Employee foundEmployee = company.retrieveEmployee(employeeID);
+		
+		if (foundEmployee != null) {
+			company.printEmployee(foundEmployee);
+		} else {
+			System.out.println("An employee of " + employeeID + " is not registered in the system.");
+		}
+		
+	}
+	
+	public void updateEmployee() {
+	 	String employeeID = Print.readEmployeeID();     
+	 	Employee foundEmployee = company.retrieveEmployee(employeeID);
+     
+	 	int choice;
+	 	do {
+    		
+            choice = Print.updatingEmployee();
+	 		
+	 		switch (choice) {
+	 		
+	 		case 1://Name
+	 			company.updateName(foundEmployee, Print.enterName());
+	 			break;
+	 			
+	 		case 2://Gross Salary
+	 			company.updateGrossSalary(foundEmployee, Print.enterGrossSalary());
+	 			break;
+	 			
+	 		case 3://GPA
+	 			if (foundEmployee.getClass() == Intern.class) {
+	 				company.updateGPA(foundEmployee, Print.enterGPA());
+	 			} else {
+	 				Print.printString("This option is only available for Interns");
+	 			}
+	 			break;
+	 			
+	 		case 4://Degree
+	 			
+	 			if (foundEmployee.getClass() == Manager.class || foundEmployee.getClass() == Director.class) {
+	 				company.updateDegree(foundEmployee, Print.enterDegree());
+	 			} else {
+	 				Print.printString("This option is only available for Managers or Directors");
+	 			}	
+	 			break;
+	 			
+	 		case 5://Department
+	 			
+	 			if (foundEmployee.getClass() == Director.class) {
+	 				company.updateDepartment(foundEmployee, Print.enterDepartment());
+	 			} else {
+	 				Print.printString("This option is only available for Directors");
+                }
+	 			break;
+
+	 		case 6://Quit
+	 			System.out.println();
+	 			break;	
+	 			
+	 		default:
+	 			Print.printString("Option "+choice+" is not valid.");
+                break;
+	 		}
+	} while (choice != 6);
+}
+
+	//Promotion
+	public void promote() {
+    	String name, id, degree, department;
+        double totGross;
+    	int GPA, choice;
+		
+		String employeeID = Print.readEmployeeID();  
+		if (company.retrieveEmployee(employeeID) == null) {
+			Print.printString("This employee does not exist");
+		} else {
+			Employee foundEmployee = company.retrieveEmployee(employeeID);
+		
+			do {
+    		
+				choice = Print.enterPromotion();
+	 		
+				switch (choice) {
+				case 1:
+					name = foundEmployee.getName();
+					totGross = foundEmployee.getTotGross();
+	 			
+					company.promoteToEmployee(foundEmployee, name, employeeID, totGross);
+					break;
+	 			
+				case 2:
+					if (foundEmployee.getClass() == Intern.class) {
+						Print.printString("Employee with ID " + employeeID + " is already an Intern");
+					} else {
+						name = foundEmployee.getName();
+						totGross = foundEmployee.getTotGross();
+
+						if (foundEmployee.getClass() == Intern.class) {
+							GPA = ((Intern) foundEmployee).getGPA();
+						} else {
+							GPA = Print.enterGPA();
+						}
+						company.promoteToIntern(foundEmployee, name, employeeID, totGross, GPA);
+					}
+					break;
+	 			
+				case 3:
+					if (foundEmployee.getClass() == Manager.class) {
+						Print.printString("Employee with ID " + employeeID + " is already a Manager");
+					} else {
+						name = foundEmployee.getName();
+						totGross = foundEmployee.getTotGross();
+
+						if (foundEmployee.getClass() == Director.class) {
+							degree = ((Director) foundEmployee).getDegree();
+						} else {
+							degree = Print.enterDegree();
+						}
+						company.promoteToManager(foundEmployee, name, employeeID, totGross, degree);
+					}
+					break;
+	 			
+				case 4:
+					if (foundEmployee.getClass() == Director.class) {
+						Print.printString("Employee with ID " + employeeID + " is already a Director");
+					} else {
+						name = foundEmployee.getName();
+						totGross = foundEmployee.getTotGross();
+						department = Print.enterDepartment();
+	 			
+						if (foundEmployee.getClass() == Manager.class) {
+							degree = ((Manager) foundEmployee).getDegree();
+						} else {
+							degree = Print.enterDegree();	
+						}
+						company.promoteToDirector(foundEmployee, name, employeeID, totGross, degree, department);
+					}
+					break;
+	 			
+				case 5://Quit
+					System.out.println();
+					break;
+	 			
+				default:
+					Print.printString("Option "+choice+" is not valid.");
+					break;
+				}
+			} while (choice != 5);
+		}
+	}   
 }
